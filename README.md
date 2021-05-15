@@ -5,7 +5,7 @@
 This is discord bot written using `discord.py`. The bot checks the availability of vaccine in India. It used public APIs provided by CoWin portal to check the availability. The bot can run periodic checks and can alert the user once the vaccine is available. 
 
 ## Why ?
-1. Vaccine availability was really low and I was tired of looking at the portal all day checking the availability. So I build this bot so that I could book the vaccine once its available.
+1. Vaccine availability was really low and I was tired of looking at the portal all day checking the availability. Therefor I build this bot to alert me once vaccine is available.
 
 2. Learning to make a discord bot was on my list for sometime now and this seemed to be a great opportunity. 
 
