@@ -1,15 +1,15 @@
-import discord
-import random
 from discord.ext.commands import Bot as BotBase
 from discord import Intents
-from glob import glob
 from log import LOGGER
+import discord
+import random
+import os
 
 __author__ = "Febin Jose"
 
 PREFIX = "!"
 OWNER_IDS = [608587691533271042]
-COGS = [path.split("\\")[-1][:-3] for path in glob("./lib/cogs/*.py")]
+COGS = [path.split(".py")[0] for path in os.listdir("./lib/cogs/") if path.endswith(".py")]
 
 
 class Bot(BotBase):
@@ -20,7 +20,7 @@ class Bot(BotBase):
         self.stdout = None
         self.TOKEN = None
         self.VERSION = None
-        self.conf = {OWNER_IDS[0]:{"state": "", "district": "", "pincode": ""}}
+        self.conf = {OWNER_IDS[0]: {"state": "", "district": "", "pincode": ""}}
         super().__init__(command_prefix=PREFIX, owner_ids=OWNER_IDS, intents=Intents.all())
 
     def setup(self):
