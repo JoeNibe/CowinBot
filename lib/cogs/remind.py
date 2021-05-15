@@ -41,13 +41,13 @@ class Remind(Cog):
                 reminders.pop(dist_id)
         new_reminder = RemindLoop(self.bot, seconds)
         reminders[dist_id] = new_reminder
-        new_reminder.remindme.start(ctx=ctx, dist_id=dist_id, seconds=seconds)
+        new_reminder.remindme.start(ctx=ctx, id=dist_id, seconds=seconds)
         new_reminder.remindme.change_interval(seconds=seconds)
         embed = discord.Embed(title=f"Reminder for {dist_id} running every {seconds} seconds", color=0xbf6bf1)
         await ctx.send(embed=embed)
 
     @remind.command(name='pin')
-    async def dist(self, ctx, pin=None, seconds=300):
+    async def pin(self, ctx, pin=None, seconds=300):
         if not pin:
             pin = self.bot.conf.get(ctx.author.id).get('pincode')
         if (reminders := self.bot.conf[ctx.author.id]['reminders']).get(pin):

@@ -20,7 +20,7 @@ class Bot(BotBase):
         self.stdout = None
         self.TOKEN = None
         self.VERSION = None
-        self.conf = {OWNER_IDS[0]: {"state": "", "district": "", "pincode": ""}}
+        self.conf = {OWNER_IDS[0]: {"state": "", "district": "", "pincode": "", "age": 45}}
         super().__init__(command_prefix=PREFIX, owner_ids=OWNER_IDS, intents=Intents.all())
 
     def setup(self):

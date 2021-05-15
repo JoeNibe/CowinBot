@@ -15,7 +15,8 @@ class Config(commands.Cog):
     async def show_config(self, ctx):
         embed = discord.Embed(title="Current Config", color=0x226fff)
         for key, value in self.bot.conf[ctx.author.id].items():
-            embed.add_field(name=key, value=(value or "None"), inline=True)
+            if key != 'reminders':
+                embed.add_field(name=key, value=(value or "None"), inline=True)
         await ctx.send(embed=embed)
 
     @commands.group(name='config')
@@ -60,6 +61,12 @@ class Config(commands.Cog):
         self.bot.conf[ctx.author.id]['pincode'] = pincode
         await self.show_config(ctx)
 
+    @set_c.command(name='age')
+    async def pin(self, ctx, age):
+        await self.initialize_config(ctx)
+        self.bot.conf[ctx.author.id]['age'] = age
+        await self.show_config(ctx)
+
     @config.command(name='show')
     async def show(self, ctx):
         await self.initialize_config(ctx)
@@ -67,13 +74,13 @@ class Config(commands.Cog):
 
     @config.command(name='clear')
     async def clear(self, ctx):
-        self.bot.conf[ctx.author.id] = {"state": "", "district": "", "pincode": ""}
+        self.bot.conf[ctx.author.id] = {"state": "", "district": "", "pincode": "", 'reminders': {}, 'age': 45}
         embed = discord.Embed(title="Config Cleared", color=0xbf6bf1)
         await ctx.send(embed=embed)
 
     async def initialize_config(self, ctx):
         if not self.bot.conf.get(ctx.author.id):
-            self.bot.conf[ctx.author.id] = {"state": "", "district": "", "pincode": "", 'reminders': {}}
+            self.bot.conf[ctx.author.id] = {"state": "", "district": "", "pincode": "", 'reminders': {}, 'age': 45}
 
 
 def setup(bot):

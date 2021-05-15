@@ -38,17 +38,17 @@ class Check(Cog):
         dist_data = await check_api.check_dist(dist_id, date)
         await self.send_message(ctx, dist_data, no_slot_alert=no_slot_alert)
 
-    @staticmethod
-    async def send_message(ctx, data, no_slot_alert=True):
+    async def send_message(self, ctx, data, no_slot_alert=True):
         embed = discord.Embed(title="Available Slots", color=0xccaf1f)
         embed.set_footer(text=datetime.datetime.now(datetime.timezone.utc)
                          .astimezone(datetime.timezone(datetime.timedelta(hours=5,minutes=30))).strftime("%d-%m-%Y %H:%M:%S"))
         count = 0
+        age = int(self.bot.conf[ctx.author.id]['age']) or 45
         available = False
         mention_user = True
         for center in data:
             for session in center.get('sessions'):
-                if session.get('available_capacity') >= 1:
+                if session.get('available_capacity') >= 1 and session.get('min_age_limit') <= age:
                     available = True
                     availability_data = f"```Date: {session.get('date')}\nVaccine: {session.get('vaccine')}\n" \
                                         f"Min Age: {session.get('min_age_limit')}\n" \
